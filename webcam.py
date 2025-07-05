@@ -1,7 +1,6 @@
 #!/bin/env python3
 
-from PySide6 import QtCore, QtQuick, QtWidgets, QtGui
-from PySide6.QtMultimedia import QMediaDevices, QCamera
+from PySide6 import QtCore, QtQuick, QtWidgets, QtGui, QtMultimedia
 import pyzbar, sys
 
 
@@ -13,38 +12,35 @@ class Frontend(QtWidgets.QWidget):
         # --- Main Window ----
         self.setWindowTitle("Barcode Scanner")
         self.cameraButton = QtWidgets.QPushButton("Open Webcam")
+        self.layout = QtWidgets.QVBoxLayout(self)
 
 
         # --- Clicked button commands ---
-        self.cameraButton.clicked.connect(self.openCamera)
+        #self.cameraButton.clicked.connect(self.webcam())
         
         # --- Display video ---
-        self.video_widget = QVideoWidget()
-        layout.addWidget(self.video_widget)
+        self.webcam = QtMultimedia.QCameraDevice.id()
+        self.video = QtMultimedia.QMediaCaptureSession.camera()
+       # self.layout.addWidget(self.video_widget)
 
 
         # --- Layout ----
-        self.layout = QtWidgets.QVBoxLayout(self)
-        self.layout.addWidget(self)
+        self.layout.addWidget(self.video)
 
         @QtCore.Slot()
         def webcam(self):
             pass
 
-        def listCam():
+        def listCam(self):
             pass
 
         # --- Check Availability of Webcam
-        def check_cam():
-            if QMediaDevices.videoInputs().count() > 0:
-                return True
-            else:
-                return False
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
+    print(Frontend.webcam)
+
 
     widget = Frontend()
     widget.resize(400,400)
-    wiget.show()
+    widget.show()
     sys.exit(app.exec())
