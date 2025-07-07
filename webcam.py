@@ -1,6 +1,6 @@
 #!/bin/env python3
 
-from PySide6 import QtCore, QtQuick, QtWidgets, QtGui, QtMultimedia
+from PySide6 import QtCore, QtWidgets, QtMultimedia, QtMultimediaWidgets
 import pyzbar, sys
 
 
@@ -19,16 +19,21 @@ class Frontend(QtWidgets.QWidget):
         #self.cameraButton.clicked.connect(self.webcam())
         
         # --- Display video ---
-        self.webcam = QtMultimedia.QCameraDevice.id()
-        self.video = QtMultimedia.QMediaCaptureSession.camera()
-       # self.layout.addWidget(self.video_widget)
+        self.mediaSession = QtMultimedia.QMediaCaptureSession()
+        self.webcam = QtMultimedia.QCamera()
+        self.videoWidget = QtMultimedia.QVideoWidget()
+        self.mediaSession.setVideoOutput(self.videoWidget)
+
 
 
         # --- Layout ----
-        self.layout.addWidget(self.video)
+        self.layout.addWidget(self.videoWidget)
 
         @QtCore.Slot()
         def webcam(self):
+
+
+
             pass
 
         def listCam(self):
@@ -37,8 +42,6 @@ class Frontend(QtWidgets.QWidget):
         # --- Check Availability of Webcam
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
-    print(Frontend.webcam)
-
 
     widget = Frontend()
     widget.resize(400,400)
