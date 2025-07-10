@@ -21,13 +21,15 @@ class Frontend(QtWidgets.QWidget):
         # --- Display video ---
         self.mediaSession = QtMultimedia.QMediaCaptureSession()
         self.webcam = QtMultimedia.QCamera()
-        self.videoWidget = QtMultimedia.QVideoWidget()
-        self.mediaSession.setVideoOutput(self.videoWidget)
+        self.viewFinder = QtMultimediaWidgets.QVideoWidget()
+        self.mediaSession.setCamera(self.webcam)
+        self.mediaSession.setVideoOutput(self.viewFinder)
+        self.viewFinder.show()
+        #self.webcam.start()
 
 
 
         # --- Layout ----
-        self.layout.addWidget(self.videoWidget)
 
         @QtCore.Slot()
         def webcam(self):
