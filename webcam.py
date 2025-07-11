@@ -9,43 +9,36 @@ class Frontend(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        # --- Main Window ----
-        self.setWindowTitle("Barcode Scanner")
-        self.cameraButton = QtWidgets.QPushButton("Open Webcam")
-        self.layout = QtWidgets.QVBoxLayout(self)
+        # --- Main Window ---
+        # TBD
 
 
-        # --- Clicked button commands ---
-        #self.cameraButton.clicked.connect(self.webcam())
         
-        # --- Display video ---
+        # --- Viewfinder Window---
+
+        self.setWindowTitle("Barcode Scanner")
         self.mediaSession = QtMultimedia.QMediaCaptureSession()
         self.webcam = QtMultimedia.QCamera()
         self.viewFinder = QtMultimediaWidgets.QVideoWidget()
         self.mediaSession.setCamera(self.webcam)
         self.mediaSession.setVideoOutput(self.viewFinder)
         self.viewFinder.show()
-        #self.webcam.start()
+        self.webcam.start()
 
-
+        # --- Clicked button commands ---
+        #self.cameraButton.clicked.connect(self.webcam())
 
         # --- Layout ----
 
         @QtCore.Slot()
         def webcam(self):
-
-
-
             pass
 
         def listCam(self):
             pass
 
-        # --- Check Availability of Webcam
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
 
     widget = Frontend()
-    widget.resize(400,400)
-    widget.show()
     sys.exit(app.exec())
